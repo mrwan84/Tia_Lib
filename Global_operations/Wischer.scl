@@ -1,0 +1,20 @@
+﻿FUNCTION "Wischer" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_IN_OUT 
+      In_Bit : Bool;
+   END_VAR
+
+
+BEGIN
+	(*
+	 M.alsouki 
+	*)
+	ENO := FALSE;
+	ENO := #In_Bit;
+	#In_Bit := FALSE;
+	
+	
+	
+END_FUNCTION
+

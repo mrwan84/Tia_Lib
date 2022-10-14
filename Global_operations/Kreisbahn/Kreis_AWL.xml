@@ -1,0 +1,494 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V17" />
+  <DocumentInfo>
+    <Created>2022-10-14T12:26:28.8296594Z</Created>
+    <ExportSetting>WithDefaults</ExportSetting>
+    <InstalledProducts>
+      <Product>
+        <DisplayName>Totally Integrated Automation Portal</DisplayName>
+        <DisplayVersion>V17 Update 4</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>TIA Portal Openness</DisplayName>
+        <DisplayVersion>V17 Update 4</DisplayVersion>
+      </OptionPackage>
+      <OptionPackage>
+        <DisplayName>TIA Portal Version Control Interface</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </OptionPackage>
+      <Product>
+        <DisplayName>SINAMICS Startdrive Advanced</DisplayName>
+        <DisplayVersion>V17 Update2</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>SINAMICS Startdrive G130, G150, S120, S150, SINAMICS MV, S210</DisplayName>
+        <DisplayVersion>V17 Update2</DisplayVersion>
+      </OptionPackage>
+      <OptionPackage>
+        <DisplayName>SINAMICS Startdrive G110M, G120, G120C, G120D, G120P, G115D</DisplayName>
+        <DisplayVersion>V17 Update2</DisplayVersion>
+      </OptionPackage>
+      <Product>
+        <DisplayName>STEP 7 Professional</DisplayName>
+        <DisplayVersion>V17 Update 4</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>STEP 7 Safety</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </OptionPackage>
+      <Product>
+        <DisplayName>WinCC Advanced / Unified PC</DisplayName>
+        <DisplayVersion>V17 Update 4</DisplayVersion>
+      </Product>
+    </InstalledProducts>
+  </DocumentInfo>
+  <SW.Blocks.FC ID="0">
+    <AttributeList>
+      <AutoNumber>true</AutoNumber>
+      <HeaderAuthor />
+      <HeaderFamily />
+      <HeaderName />
+      <HeaderVersion>0.1</HeaderVersion>
+      <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+  <Section Name="Input">
+    <Member Name="INput_INT" Datatype="Int" Accessibility="Public" />
+    <Member Name="INput_MAX_INT" Datatype="Int" Accessibility="Public" />
+    <Member Name="X0_POS" Datatype="Int" Accessibility="Public" />
+    <Member Name="Y0_POS" Datatype="Int" Accessibility="Public" />
+    <Member Name="Anfang_Grad" Datatype="Real" Accessibility="Public">
+      <Comment>
+        <MultiLanguageText Lang="de-DE">Startwinkel</MultiLanguageText>
+      </Comment>
+    </Member>
+    <Member Name="Radius" Datatype="Real" Accessibility="Public" />
+    <Member Name="Clockwise" Datatype="Bool" Accessibility="Public">
+      <Comment>
+        <MultiLanguageText Lang="de-DE">Im Uhrzeigersinn /  Gegen den Uhrzeigersinn</MultiLanguageText>
+      </Comment>
+    </Member>
+  </Section>
+  <Section Name="Output">
+    <Member Name="X_POS" Datatype="Int" Accessibility="Public">
+      <Comment>
+        <MultiLanguageText Lang="de-DE">verbinden mit HMI</MultiLanguageText>
+      </Comment>
+    </Member>
+    <Member Name="Y_POS" Datatype="Int" Accessibility="Public">
+      <Comment>
+        <MultiLanguageText Lang="de-DE">verbinden mit HMI</MultiLanguageText>
+      </Comment>
+    </Member>
+  </Section>
+  <Section Name="InOut" />
+  <Section Name="Temp">
+    <Member Name="Bodenmass" Datatype="Real" />
+    <Member Name="Grad_per_input" Datatype="Real" />
+    <Member Name="Richtung" Datatype="Real" />
+  </Section>
+  <Section Name="Constant" />
+  <Section Name="Return">
+    <Member Name="Ret_Val" Datatype="Void" Accessibility="Public" />
+  </Section>
+</Sections></Interface>
+      <MemoryLayout>Optimized</MemoryLayout>
+      <Name>Kreis_AWL</Name>
+      <Number>3</Number>
+      <ProgrammingLanguage>STL</ProgrammingLanguage>
+      <UDABlockProperties />
+      <UDAEnableTagReadback>false</UDAEnableTagReadback>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="3" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="4" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v4">
+  <StlStatement UId="101">
+    <LineComment Inserted="false">
+      <Text> mit dieser Funktion können Objekte auf einer kreisbahn verschoben werden</Text>
+    </LineComment>
+    <StlToken Text="COMMENT" />
+  </StlStatement>
+  <StlStatement UId="21">
+    <StlToken Text="L" />
+    <Access Scope="LiteralConstant">
+      <Constant>
+        <ConstantType>Real</ConstantType>
+        <ConstantValue>360.0</ConstantValue>
+      </Constant>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="24">
+    <StlToken Text="L" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="INput_MAX_INT" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="26">
+    <StlToken Text="ITD" />
+  </StlStatement>
+  <StlStatement UId="27">
+    <StlToken Text="DTR" />
+  </StlStatement>
+  <StlStatement UId="28">
+    <StlToken Text="DIV_R" />
+  </StlStatement>
+  <StlStatement UId="29">
+    <StlToken Text="T" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Grad_per_input" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="31">
+    <LineComment Inserted="false">
+      <Text>==============================================</Text>
+    </LineComment>
+    <StlToken Text="COMMENT" />
+  </StlStatement>
+  <StlStatement UId="75">
+    <StlToken Text="A" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Clockwise" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="77">
+    <StlToken Text="JC" />
+    <Access Scope="Label">
+      <Label Name="m01" />
+    </Access>
+  </StlStatement>
+  <StlStatement UId="82">
+    <StlToken Text="L" />
+    <Access Scope="LiteralConstant">
+      <Constant>
+        <ConstantType>Real</ConstantType>
+        <ConstantValue>-1.0</ConstantValue>
+      </Constant>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="91">
+    <StlToken Text="T" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Richtung" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="79">
+    <LabelDeclaration>
+      <Label Name="m01" />
+    </LabelDeclaration>
+    <StlToken Text="NOP_0" />
+  </StlStatement>
+  <StlStatement UId="84">
+    <StlToken Text="A" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Clockwise" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="86">
+    <StlToken Text="JCN" />
+    <Access Scope="Label">
+      <Label Name="m02" />
+    </Access>
+  </StlStatement>
+  <StlStatement UId="93">
+    <StlToken Text="L" />
+    <Access Scope="LiteralConstant">
+      <Constant>
+        <ConstantType>Real</ConstantType>
+        <ConstantValue>1.0</ConstantValue>
+      </Constant>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="95">
+    <StlToken Text="T" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Richtung" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="81">
+    <LabelDeclaration>
+      <Label Name="m02" />
+    </LabelDeclaration>
+    <StlToken Text="NOP_0" />
+  </StlStatement>
+  <StlStatement UId="73">
+    <LineComment Inserted="false">
+      <Text>=================================================</Text>
+    </LineComment>
+    <StlToken Text="COMMENT" />
+  </StlStatement>
+  <StlStatement UId="33">
+    <StlToken Text="L" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="INput_INT" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="35">
+    <StlToken Text="ITD" />
+  </StlStatement>
+  <StlStatement UId="36">
+    <StlToken Text="DTR" />
+  </StlStatement>
+  <StlStatement UId="37">
+    <StlToken Text="L" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Grad_per_input" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="39">
+    <StlToken Text="MUL_R" />
+  </StlStatement>
+  <StlStatement UId="89">
+    <StlToken Text="L" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Anfang_Grad" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="100">
+    <StlToken Text="ADD_R" />
+  </StlStatement>
+  <StlStatement UId="40">
+    <StlToken Text="L" />
+    <Access Scope="LiteralConstant">
+      <Constant>
+        <ConstantType>Real</ConstantType>
+        <ConstantValue>3.1428</ConstantValue>
+      </Constant>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="42">
+    <StlToken Text="MUL_R" />
+  </StlStatement>
+  <StlStatement UId="43">
+    <StlToken Text="L" />
+    <Access Scope="LiteralConstant">
+      <Constant>
+        <ConstantType>Real</ConstantType>
+        <ConstantValue>180.0</ConstantValue>
+      </Constant>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="45">
+    <StlToken Text="DIV_R" />
+  </StlStatement>
+  <StlStatement UId="97">
+    <StlToken Text="L" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Richtung" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="99">
+    <StlToken Text="MUL_R" />
+  </StlStatement>
+  <StlStatement UId="46">
+    <StlToken Text="T" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Bodenmass" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="49">
+    <LineComment Inserted="false">
+      <Text>======================================================</Text>
+    </LineComment>
+    <StlToken Text="COMMENT" />
+  </StlStatement>
+  <StlStatement UId="51">
+    <StlToken Text="L" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Bodenmass" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="53">
+    <StlToken Text="COS" />
+  </StlStatement>
+  <StlStatement UId="54">
+    <StlToken Text="L" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Radius" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="56">
+    <StlToken Text="MUL_R" />
+  </StlStatement>
+  <StlStatement UId="57">
+    <StlToken Text="TRUNC" />
+  </StlStatement>
+  <StlStatement UId="105">
+    <StlToken Text="L" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="X0_POS" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="107">
+    <StlToken Text="ADD_I" />
+  </StlStatement>
+  <StlStatement UId="108">
+    <StlToken Text="T" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="X_POS" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="60">
+    <LineComment Inserted="false">
+      <Text>==================================================</Text>
+    </LineComment>
+    <StlToken Text="COMMENT" />
+  </StlStatement>
+  <StlStatement UId="62">
+    <StlToken Text="L" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Bodenmass" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="64">
+    <StlToken Text="SIN" />
+  </StlStatement>
+  <StlStatement UId="65">
+    <StlToken Text="L" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Radius" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="67">
+    <StlToken Text="MUL_R" />
+  </StlStatement>
+  <StlStatement UId="58">
+    <StlToken Text="TRUNC" />
+  </StlStatement>
+  <StlStatement UId="116">
+    <StlToken Text="L" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Y0_POS" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="118">
+    <StlToken Text="ADD_I" />
+  </StlStatement>
+  <StlStatement UId="119">
+    <StlToken Text="T" />
+    <Access Scope="LocalVariable">
+      <Symbol>
+        <Component Name="Y_POS" />
+      </Symbol>
+    </Access>
+  </StlStatement>
+  <StlStatement UId="71">
+    <LineComment Inserted="false">
+      <Text>===================================================================</Text>
+    </LineComment>
+    <StlToken Text="COMMENT" />
+  </StlStatement>
+  <StlStatement UId="48">
+    <StlToken Text="EMPTY_LINE" />
+  </StlStatement>
+  <StlStatement UId="22">
+    <StlToken Text="EMPTY_LINE" />
+  </StlStatement>
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="5" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="6" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="7" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="8" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="9" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="A" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <MultilingualText ID="B" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="C" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="D" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.FC>
+</Document>

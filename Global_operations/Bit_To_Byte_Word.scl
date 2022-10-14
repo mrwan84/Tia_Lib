@@ -1,0 +1,69 @@
+﻿FUNCTION "Bit_To_Byte_Word" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Bit_0 : Bool;
+      Bit_1 : Bool;
+      Bit_2 : Bool;
+      Bit_3 : Bool;
+      Bit_4 : Bool;
+      Bit_5 : Bool;
+      Bit_6 : Bool;
+      Bit_7 : Bool;
+      Bit_8 : Bool;
+      Bit_9 : Bool;
+      Bit_10 : Bool;
+      Bit_11 : Bool;
+      Bit_12 : Bool;
+      Bit_13 : Bool;
+      Bit_14 : Bool;
+      Bit_15 : Bool;
+   END_VAR
+
+   VAR_OUTPUT 
+      OutByte_0 : Byte;
+      OutByte_1 : Byte;
+      OutWord : Word;
+   END_VAR
+
+   VAR_TEMP 
+      tempByte_0 : Byte;
+      tempByte_1 : Byte;
+   END_VAR
+
+
+BEGIN
+	
+	//  M.alsouki      10.9.2019   V1.0
+	//
+	//Funktion: Bits => Byte
+	//          Bits => Word
+	//==============================================================
+	
+	#tempByte_0.%X0 := #Bit_0;
+	#tempByte_0.%X1 := #Bit_1;
+	#tempByte_0.%X2 := #Bit_2;
+	#tempByte_0.%X3 := #Bit_3;
+	#tempByte_0.%X4 := #Bit_4;
+	#tempByte_0.%X5 := #Bit_5;
+	#tempByte_0.%X6 := #Bit_6;
+	#tempByte_0.%X7 := #Bit_7;
+	#tempByte_1.%X0 := #Bit_8;
+	#tempByte_1.%X1 := #Bit_9;
+	#tempByte_1.%X2 := #Bit_10;
+	#tempByte_1.%X3 := #Bit_11;
+	#tempByte_1.%X4 := #Bit_12;
+	#tempByte_1.%X5 := #Bit_13;
+	#tempByte_1.%X6 := #Bit_14;
+	#tempByte_1.%X7 := #Bit_15;
+	//-------------------------------------------------------------
+	//
+	#OutByte_0 := #tempByte_0;
+	#OutByte_1 := #tempByte_1;
+	//-------------------------------------------------------------
+	//
+	#OutWord.%B0 := #tempByte_0;
+	#OutWord.%B1 := #tempByte_1;
+	
+END_FUNCTION
+

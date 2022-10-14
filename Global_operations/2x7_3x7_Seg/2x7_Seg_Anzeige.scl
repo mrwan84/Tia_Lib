@@ -1,0 +1,19 @@
+﻿FUNCTION "2x7_Seg_Anzeige" : Int
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      BCD_wort_2Tetrade : Word;
+   END_VAR
+
+
+BEGIN
+	
+	
+	#"2x7_Seg_Anzeige".%B0 := "7_SegmenteAnzeige"(b_0_0 := #BCD_wort_2Tetrade.%X0, b_0_1 := #BCD_wort_2Tetrade.%X1,
+	                                              b_0_2 := #BCD_wort_2Tetrade.%X2, b_0_3 := #BCD_wort_2Tetrade.%X3);
+	
+	#"2x7_Seg_Anzeige".%B1 := "7_SegmenteAnzeige"(b_0_0 := #BCD_wort_2Tetrade.%X4, b_0_1 := #BCD_wort_2Tetrade.%X5,
+	                                              b_0_2 := #BCD_wort_2Tetrade.%X6, b_0_3 := #BCD_wort_2Tetrade.%X7);
+	
+END_FUNCTION
+
